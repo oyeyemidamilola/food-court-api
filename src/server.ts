@@ -22,8 +22,6 @@ export class Application {
 			// },
 		};
 		this.app = createExpressServer(options);
-
-
         this.server = http.createServer(this.app);
 		this.server.listen(configuration.port, () =>
 			console.log(
