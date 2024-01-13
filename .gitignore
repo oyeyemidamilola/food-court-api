@@ -1,0 +1,12 @@
+# npm
+node_modules
+package-lock.json
+*.log
+*.gz
+.env
+dist
+
+# Coveralls
+.nyc_output
+coverage
+yarn.lock
