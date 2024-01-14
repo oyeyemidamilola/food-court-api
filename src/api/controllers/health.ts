@@ -1,7 +1,6 @@
 
 import { Service } from 'typedi';
 
-// dotenv.config();
 import {
 	Authorized,
 	Get,

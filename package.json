@@ -13,7 +13,8 @@
     "swagger": "tsoa spec-and-routes && tsc",
     "lint": "eslint --ext .js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "create:migration": "knex migrate:make -x ts --knexfile ./src/infrastructure/configurations/knexfile.ts --migrations-directory ../data/migrations"
+    "create:migration": "knex migrate:make -x ts --knexfile ./src/infrastructure/configurations/knexfile.ts --migrations-directory ../data/migrations",
+    "run:migration": "knex migrate:latest  --knexfile ./src/infrastructure/configurations/knexfile.ts"
   },
   "author": "Oyeyemi Damilola",
   "license": "ISC",

@@ -1,4 +1,5 @@
 export interface ApplicationConfigurationInterface {
+    environment: string
     host: string
     port: number
     db: {

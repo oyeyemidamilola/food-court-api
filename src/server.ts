@@ -1,8 +1,14 @@
 import 'reflect-metadata';
 import path from 'path';
+import knex from 'knex';
+
 import { Application as ExpressApplication } from 'express';
 import http, { Server } from 'http';
 import { RoutingControllersOptions, createExpressServer } from 'routing-controllers';
+import { Model } from 'objection';
+
+
+import config from '@infrastructure/configurations/knexfile';
 import { configuration } from '@infrastructure/configurations';
 
 export class Application {
@@ -21,6 +27,7 @@ export class Application {
 			// 	return roles.some(r => scopes.includes(r));
 			// },
 		};
+		this.configureDb()
 		this.app = createExpressServer(options);
         this.server = http.createServer(this.app);
 		this.server.listen(configuration.port, () =>
@@ -29,6 +36,11 @@ export class Application {
 			)
 		);
     }
+
+	configureDb(){
+		const database = knex(config[configuration.environment])
+		Model.knex(database)
+	}
 }
 
 new Application()

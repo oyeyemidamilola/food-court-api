@@ -6,7 +6,7 @@ configDotenv()
 const {
     HOST,
     PORT,
-    ENVIRONMENT,
+    NODE_ENV,
 
     POSTGRES_USERNAME,
     POSTGRES_PASSWORD
@@ -14,6 +14,7 @@ const {
 
 
 export const configuration: ApplicationConfigurationInterface  = {
+    environment: NODE_ENV!,
     host: HOST!,
     port: parseInt(PORT!),
     db: {

@@ -9,7 +9,7 @@ const ON_UPDATE_TIMESTAMP_FUNCTION = `
     NEW."updated_at" = now();
 
     IF (NEW.is = false) THEN
-      NEW."updated_at" = OLD."updatedAt";
+      NEW."updated_at" = OLD."updated_at";
       NEW."deleted_at" = now();
     END IF;
 
