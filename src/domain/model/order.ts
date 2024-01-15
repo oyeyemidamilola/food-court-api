@@ -3,6 +3,7 @@ import { Model, RelationMapping } from "objection";
 import { CalculatedOrder } from "./calculatedOrder";
 import { OrderLog } from "./orderLog";
 import { Meal } from "./meal";
+import { KicthenStatus, OrderStatus } from "@domain/types";
 
 
 export class Order extends Model {
@@ -13,7 +14,25 @@ export class Order extends Model {
     updated_at: Date;
     deleted_at: Date;
 
-    
+    user_id: string
+
+    kitchen_status: KicthenStatus
+    order_status: OrderStatus
+    order_code: string
+    completed_time?: Date
+    is_paid: boolean
+    longitude: number
+    latitude: number
+
+    is_scheduled: boolean
+    scheduled_delivery_date?: Date
+    scheduled_delivery_time?: Date
+
+    rider_id: string
+    rider_start_time: number
+    rider_completed_time: number
+
+
 
     static tableName: string = 'orders'
     static idColumn: string = 'id'

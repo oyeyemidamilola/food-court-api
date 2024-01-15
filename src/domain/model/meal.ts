@@ -18,6 +18,7 @@ export class Meal extends Model {
     amount: number 
     description: string
     internal_profit: number
+    images: string[]
 
     brand_id: string
 
