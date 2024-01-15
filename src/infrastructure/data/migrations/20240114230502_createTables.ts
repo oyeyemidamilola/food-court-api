@@ -39,7 +39,7 @@ export async function up(knex: Knex): Promise<void> {
 
 
 export async function down(knex: Knex): Promise<void> {
-    return knex.schema
+    return await knex.schema
     .dropTableIfExists('orders')
     .dropTableIfExists('calculated_orders')
     .dropTableIfExists('order_logs')
