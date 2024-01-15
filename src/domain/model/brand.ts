@@ -9,6 +9,10 @@ export class Brand extends Model {
     updated_at: Date;
     deleted_at: Date;
 
+    name: string
+    latitude: number
+    longitude: number
+
     static tableName: string = 'brands'
     static idColumn: string = 'id'
 

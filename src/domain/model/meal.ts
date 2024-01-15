@@ -12,6 +12,14 @@ export class Meal extends Model {
     updated_at: Date;
     deleted_at: Date;
 
+    meal_tags: string[]
+    is_active: boolean
+    name: string
+    amount: number 
+    description: string
+    internal_profit: number
+
+
     static tableName: string = 'meals'
     static idColumn: string = 'id'
 

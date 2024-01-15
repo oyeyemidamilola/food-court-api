@@ -9,6 +9,8 @@ export class OrderLog extends Model {
     updated_at: Date;
     deleted_at: Date;
 
+    description: string
+
     static tableName: string = 'order_logs'
     static idColumn: string = 'id'
 }
