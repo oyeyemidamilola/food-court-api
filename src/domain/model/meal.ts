@@ -19,6 +19,8 @@ export class Meal extends Model {
     description: string
     internal_profit: number
 
+    brand_id: string
+
 
     static tableName: string = 'meals'
     static idColumn: string = 'id'

@@ -2,7 +2,8 @@ import type { Knex } from "knex";
 
 
 export async function up(knex: Knex): Promise<void> {
-    return await knex.schema.alterTable('meals', builder => {
+    return await knex.schema
+    .alterTable('meals', builder => {
         builder.boolean('isActive').notNullable()
         builder.string('name').notNullable()
         builder.decimal('amount').notNullable()
@@ -14,7 +15,8 @@ export async function up(knex: Knex): Promise<void> {
 
 
 export async function down(knex: Knex): Promise<void> {
-    return await knex.schema.alterTable('meals', builder => {
+    return await knex.schema
+    .alterTable('meals', builder => {
         builder.dropColumns('isActive', 'name', 'amount', 'description', 'internalProfit', 'mealTags')
     })
 }

@@ -2,7 +2,8 @@ import type { Knex } from "knex";
 
 
 export async function up(knex: Knex): Promise<void> {
-    return await knex.schema.alterTable('calculated_orders', builder => {
+    return await knex.schema
+    .alterTable('calculated_orders', builder => {
         builder.decimal('totalAmount').notNullable().checkNegative()
         builder.boolean('freeDelivery').notNullable()
         builder.decimal('deliveryFee').notNullable().checkNegative()
@@ -13,7 +14,8 @@ export async function up(knex: Knex): Promise<void> {
 
 
 export async function down(knex: Knex): Promise<void> {
-    return await knex.schema.alterTable('calculated_orders', builder => {
+    return await knex.schema
+    .alterTable('calculated_orders', builder => {
         builder.dropColumns('totalAmount','freeDelivery', 'deliveryFee', 'serviceCharge', 'addressDetails')
     })
 }

@@ -20,6 +20,8 @@ export class CalculatedOrder extends Model {
         city: string
     }
 
+    order_id: string
+
     static tableName: string = 'calculated_orders'
     static idColumn: string = 'id'
 }

@@ -13,6 +13,8 @@ export class Order extends Model {
     updated_at: Date;
     deleted_at: Date;
 
+    
+
     static tableName: string = 'orders'
     static idColumn: string = 'id'
 

@@ -11,6 +11,8 @@ export class OrderLog extends Model {
 
     description: string
 
+    order_id: string
+
     static tableName: string = 'order_logs'
     static idColumn: string = 'id'
 }
