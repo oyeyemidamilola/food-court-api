@@ -3,6 +3,7 @@ import {
 	Middleware,
 	ExpressErrorMiddlewareInterface,
 	UnauthorizedError,
+	NotFoundError,
 } from 'routing-controllers';
 import { Service } from 'typedi';
 
@@ -20,11 +21,16 @@ export class GlobalErrorHandler implements ExpressErrorMiddlewareInterface {
 			return expressResponse.status(403).send('Access denied');
 		}
 
+		if(error instanceof NotFoundError){
+			return expressResponse.status(404).send(error)
+		}
+
 		if (error.httpCode === 400) {
 			return expressResponse.status(400).send(error);
 		}
 
 		if (error instanceof Error) {
+			console.log(error)
 			return expressResponse.sendStatus(500);
 		}
 	}

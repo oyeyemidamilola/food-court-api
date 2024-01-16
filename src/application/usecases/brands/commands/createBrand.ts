@@ -1,9 +1,11 @@
 import { IRequest, IRequestHandler, requestHandler } from "mediatr-ts";
-import {  ResponseInterface } from "@application/common";
 import { Service } from "typedi";
 
+import {  ResponseInterface } from "@application/common";
+import { Brand } from "@domain/model/brand";
 
-export class CreateBrandRequest implements IRequest<CreateBrandResponse> { 
+
+export class CreateBrandCommand implements IRequest<CreateBrandResponse> { 
 
     readonly name: string
     readonly longitude: number
@@ -27,14 +29,22 @@ export class CreateBrandResponse implements ResponseInterface<{ id: string }> {
     error?: { message: string; } | undefined;
 }
 
-@requestHandler(CreateBrandRequest)
-@Service('CreateBrandRequest')
-export class CreateBrandRequestHandler implements IRequestHandler<CreateBrandRequest, CreateBrandResponse>{
+@requestHandler(CreateBrandCommand)
+@Service('CreateBrandCommand')
+export class CreateBrandRequestHandler implements IRequestHandler<CreateBrandCommand, CreateBrandResponse>{
     
     
-    async handle(value: CreateBrandRequest): Promise<CreateBrandResponse> {
+    async handle(value: CreateBrandCommand): Promise<CreateBrandResponse> {
+
+        let brand = await Brand
+                        .query()
+                        .insert({ 
+                            name: value.name, 
+                            longitude: value.longitude, 
+                            latitude: value.latitude 
+                        })
         return {
-            data: { id: 'testing working '},
+            data: { id: brand.id },
             status: true
         }
     }

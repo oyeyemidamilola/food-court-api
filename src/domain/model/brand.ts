@@ -1,4 +1,4 @@
-import { Model, RelationMapping } from "objection";
+import { Model, ModelOptions, QueryContext, RelationMapping } from "objection";
 
 
 export class Brand extends Model {
