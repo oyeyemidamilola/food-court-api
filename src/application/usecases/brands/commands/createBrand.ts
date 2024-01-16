@@ -48,5 +48,4 @@ export class CreateBrandRequestHandler implements IRequestHandler<CreateBrandCom
             status: true
         }
     }
-
 }
