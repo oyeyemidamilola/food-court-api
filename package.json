@@ -14,11 +14,13 @@
     "lint": "eslint --ext .js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "create:migration": "knex migrate:make -x ts --knexfile ./src/infrastructure/configurations/knexfile.ts --migrations-directory ../data/migrations",
-    "run:migration": "knex migrate:latest  --knexfile ./src/infrastructure/configurations/knexfile.ts"
+    "run:migration": "knex migrate:latest  --knexfile ./src/infrastructure/configurations/knexfile.ts",
+    "seed:users":  "knex seed:run  --knexfile=./src/infrastructure/configurations/knexfile.ts"
   },
   "author": "Oyeyemi Damilola",
   "license": "ISC",
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "brcypt": "^1.0.1",
     "class-transformer": "^0.5.1",

@@ -7,7 +7,7 @@ export async function up(knex: Knex): Promise<void> {
         builder.dropColumn('orderId')
     })
     .createTable('orders_meals', builder => {
-        builder.uuid('id', { primaryKey: true })
+        builder.uuid('id', { primaryKey: true }).defaultTo(knex.raw("uuid_generate_v4()"))
         builder.uuid('orderId').references('orders.id');
         builder.uuid('mealId').references('meals.id');
     })

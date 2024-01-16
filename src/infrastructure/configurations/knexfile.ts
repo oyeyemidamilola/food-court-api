@@ -18,6 +18,9 @@ const config: { [key: string]: Knex.Config } = {
       min: 2,
       max: 10
     },
+    seeds: {
+      directory: path.join(__dirname, '..','/data/seeds')
+    },
     migrations: {
       directory: path.join(__dirname, '..','/data/migrations'),
       tableName: "knex_migrations"
