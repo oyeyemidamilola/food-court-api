@@ -15,7 +15,7 @@ import { OpenAPI } from 'routing-controllers-openapi';
 import { IMediator } from 'mediatr-ts';
 
 import { MediatorInstance } from '@infrastructure/index';
-import { CreateMealCommand, CreateMealDTO, CreateMealResponse, DeleteMealCommand, DeleteMealResponse, GetMealByIdQuery, GetMealByIdResponse, GetMealsQuery, UpdateMealCommand, UpdateMealDTO, UpdateMealResponse } from '@application/usecases/meals';
+import { CreateMealAddonsCommand, CreateMealAddonsDTO, CreateMealAddonsResponse, CreateMealCommand, CreateMealDTO, CreateMealResponse, DeleteMealCommand, DeleteMealResponse, GetMealAddonsQuery, GetMealAddonsResponse, GetMealByIdQuery, GetMealByIdResponse, GetMealsQuery, UpdateMealCommand, UpdateMealDTO, UpdateMealResponse } from '@application/usecases/meals';
 
 
 
@@ -64,5 +64,17 @@ export class MealAndAddonsController {
 	async deleteMeal(@Param('id') id: string){
 		let reponse = await this.mediator.send<DeleteMealResponse>(new DeleteMealCommand({ id }))
 		return reponse
+	}
+
+	@Post('/meal/:id/addons')
+	async createdMealAddons(@Param('id') mealId: string, @Body() request: CreateMealAddonsDTO){
+		let response = await this.mediator.send<CreateMealAddonsResponse>(new CreateMealAddonsCommand({ mealId, addOns: request.addons }))
+		return response
+	}
+
+	@Get('/meal/:id/addons')
+	async getMeadAddons(@Param('id') mealId: string, @QueryParam('isActive', { required: false }) isActive?: boolean){
+		let response = await this.mediator.send<GetMealAddonsResponse>(new GetMealAddonsQuery({ mealId, isActive }))
+		return response
 	}
 }

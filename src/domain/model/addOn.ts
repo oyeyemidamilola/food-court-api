@@ -13,7 +13,7 @@ export class AddOn extends Model {
 
     amount: number
     name: string
-    is_active: string
+    is_active: boolean
     item_type: ItemType
 
     meal_id: string

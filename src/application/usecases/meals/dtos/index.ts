@@ -1,4 +1,26 @@
-import { ArrayMinSize, ArrayNotEmpty, IsBoolean, IsNotEmpty, MaxLength, Min } from "class-validator"
+import { Type } from "class-transformer"
+import { ArrayMinSize, ArrayNotEmpty, IsBoolean, IsNotEmpty, IsPositive, IsUUID, MaxLength, Min, ValidateNested } from "class-validator"
+
+
+export class AddonDTO {
+
+    @IsPositive()
+    amount: number
+
+    @IsNotEmpty()
+    name: string
+    
+    @IsBoolean()
+    isActive: boolean
+}
+
+export class CreateMealAddonsDTO {
+
+    @ValidateNested({ each: true })
+    @Type(() => AddonDTO)
+    addons: AddonDTO[]
+
+}
 
 export class CreateMealDTO {
 

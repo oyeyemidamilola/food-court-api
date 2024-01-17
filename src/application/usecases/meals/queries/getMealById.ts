@@ -3,7 +3,6 @@ import { NotFoundError } from "routing-controllers";
 import { Service } from "typedi";
 
 import { ResponseInterface } from "@application/common";
-import { Brand } from "@domain/model/brand";
 import { Meal } from "@domain/model/meal";
 
 
