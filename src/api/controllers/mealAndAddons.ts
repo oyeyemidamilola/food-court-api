@@ -15,7 +15,8 @@ import { OpenAPI } from 'routing-controllers-openapi';
 import { IMediator } from 'mediatr-ts';
 
 import { MediatorInstance } from '@infrastructure/index';
-import { CreateMealAddonsCommand, CreateMealAddonsDTO, CreateMealAddonsResponse, CreateMealCommand, CreateMealDTO, CreateMealResponse, DeleteMealCommand, DeleteMealResponse, GetMealAddonsQuery, GetMealAddonsResponse, GetMealByIdQuery, GetMealByIdResponse, GetMealsQuery, UpdateMealCommand, UpdateMealDTO, UpdateMealResponse } from '@application/usecases/meals';
+import { AddonDTO, CreateMealAddonsCommand, CreateMealAddonsDTO, CreateMealAddonsResponse, CreateMealCommand, CreateMealDTO, CreateMealResponse, DeleteMealCommand, DeleteMealResponse, GetMealAddonsQuery, GetMealAddonsResponse, GetMealByIdQuery, GetMealByIdResponse, GetMealsQuery, UpdateMealAddonCommand, UpdateMealAddonResponse, UpdateMealCommand, UpdateMealDTO, UpdateMealResponse } from '@application/usecases/meals';
+import { request } from 'express';
 
 
 
@@ -38,7 +39,7 @@ export class MealAndAddonsController {
 	}
 
 	@Get('/meal/:id')
-	async getMealById(@Param('id') id: string){
+	async getMealById(@Param('id') id: string, @QueryParam('isActive', { required: false }) isActive?: boolean){
 		let reponse = await this.mediator.send<GetMealByIdResponse>(new GetMealByIdQuery({ mealId: id }))
 		return reponse
 	}
@@ -47,7 +48,8 @@ export class MealAndAddonsController {
 	async getMeals(
 		@QueryParam('take') take?: number,
 		@QueryParam('skip') skip?: number,
-		@QueryParam('direction') direction?: 'asc' | 'desc' 
+		@QueryParam('direction') direction?: 'asc' | 'desc' ,
+		@QueryParam('isActive', { required: false }) isActive?: boolean
 	){
 		let reponse = await this.mediator.send<GetMealByIdResponse>(new GetMealsQuery({ take, skip, direction }))
 		return reponse
@@ -75,6 +77,12 @@ export class MealAndAddonsController {
 	@Get('/meal/:id/addons')
 	async getMeadAddons(@Param('id') mealId: string, @QueryParam('isActive', { required: false }) isActive?: boolean){
 		let response = await this.mediator.send<GetMealAddonsResponse>(new GetMealAddonsQuery({ mealId, isActive }))
+		return response
+	}
+
+	@Put('/meal/:id/addons/:addOnId')
+	async updateMealAddon(@Param('id') mealId: string, @Param('addOnId') addOnId: string, @Body() request: AddonDTO ){
+		let response = await this.mediator.send<UpdateMealAddonResponse>(new UpdateMealAddonCommand({ mealId, addOn: { id: addOnId, ...request } }))
 		return response
 	}
 }

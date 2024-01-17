@@ -7,18 +7,22 @@ import { Meal } from "@domain/model/meal";
 
 export class GetMealsQuery implements IRequest<GetMealsResponse> { 
 
-    skip?: number
-    take?: number
-    direction?: 'asc' | 'desc'
+    readonly skip?: number
+    readonly take?: number
+    readonly direction?: 'asc' | 'desc'
+    readonly isActive?: boolean
+
     
     constructor(request: {
         skip?: number
         take?: number
         direction?: 'asc' | 'desc'
+        isActive?: boolean
     }){
         this.skip = request.skip
         this.take = request.take
         this.direction = request.direction
+        this.isActive = request.isActive
     }
 
 }
@@ -40,6 +44,7 @@ export class GetMealsQueryHandler implements IRequestHandler<GetMealsQuery, GetM
         let mealQueryBuilder = Meal
                                 .knexQuery()
                                 .where('is_deleted', false)
+                                .where('is_active', value.isActive ?? true)
                                 .orderBy('updated_at', value.direction ?? 'asc')
         
         let totalSelect = (await mealQueryBuilder.select() as Meal[]).length

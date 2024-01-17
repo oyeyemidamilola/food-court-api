@@ -19,7 +19,9 @@ import config from '@infrastructure/configurations/knexfile';
 import { configuration } from '@infrastructure/configurations';
 import Container from 'typedi';
 import { IocResolver } from './infrastructure';
-import { GlobalErrorHandler } from '@api/middlewares/globalExceptionMiddleware';
+import { GlobalErrorHandler, LoggerHandler } from '@api/middlewares';
+
+
 
 export class Application {
 
@@ -31,7 +33,7 @@ export class Application {
 			cors: true,
 			controllers: [path.join(__dirname, '/api/controllers/*.ts')],
 			defaultErrorHandler: false,
-			middlewares: [GlobalErrorHandler],
+			middlewares: [GlobalErrorHandler, LoggerHandler],
 			// authorizationChecker: async (action: Action, roles: any[]) => {
 			// 	let scopes = action.request['scope'] as string[];
 			// 	return roles.some(r => scopes.includes(r));

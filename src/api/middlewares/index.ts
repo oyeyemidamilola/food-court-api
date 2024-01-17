@@ -1,1 +1,2 @@
-export * from '@api/middlewares'
+export * from '@api/middlewares/globalExceptionMiddleware'
+export * from '@api/middlewares/loggerMiddleware'

@@ -10,11 +10,14 @@ import { Meal } from "@domain/model/meal";
 export class GetMealByIdQuery implements IRequest<GetMealByIdResponse> { 
 
     readonly mealId: string
-    
+    readonly isActive?: boolean
+
     constructor(request: {
         mealId: string
+        isActiive?: boolean
     }){
         this.mealId = request.mealId
+        this.isActive = request.isActiive
     }
 
 }
@@ -36,6 +39,7 @@ export class GetMealByIdQueryHandler implements IRequestHandler<GetMealByIdQuery
                         .query()
                         .findById(value.mealId)
                         .where('is_deleted', false)
+                        .where('is_active', value.isActive ?? true)
 
         if(!meal) throw new NotFoundError(`Meal not found`)
                        
