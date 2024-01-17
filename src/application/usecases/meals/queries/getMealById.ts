@@ -38,7 +38,7 @@ export class GetMealByIdQueryHandler implements IRequestHandler<GetMealByIdQuery
                         .findById(value.mealId)
                         .where('is_deleted', false)
 
-        if(!meal) throw new NotFoundError(`Brand not found`)
+        if(!meal) throw new NotFoundError(`Meal not found`)
                        
         return {
             data: meal,

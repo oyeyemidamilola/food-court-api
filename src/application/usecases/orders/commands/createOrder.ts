@@ -63,7 +63,7 @@ export class CreateOrderRequestHandler implements IRequestHandler<CreateOrderCom
         let order = await Order
                         .query()
                         .insert({ 
-                            user_id: value.userId,
+                            // user_id: value.userId,
                             order_code: value.orderCode,
                             order_status: value.orderStatus as unknown as OrderStatus,
                             kitchen_status: value.kitchenStatus as unknown as KitchenStatus,

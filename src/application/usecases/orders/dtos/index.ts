@@ -1,4 +1,4 @@
-import { IsBoolean, IsDate, IsEnum, IsLatitude, IsLongitude, IsNotEmpty, IsUUID, MaxLength, ValidateIf } from "class-validator"
+import { IsBoolean, IsDate, IsEnum, IsLatitude, IsLongitude, IsNotEmpty, IsOptional, IsUUID, MaxLength, ValidateIf } from "class-validator"
 
 import { KitchenStatusEnum, OrderStatusEnum } from "@domain/enums"
 
@@ -30,12 +30,10 @@ export class CreateOrderDTO {
     @IsBoolean()
     isSchduled: boolean
 
-    @ValidateIf(o => o.isSchduled)
-    @IsDate()
+    @IsOptional()
     scheduledDeliveryDate?: Date
 
-    @ValidateIf(o => o.isSchduled)
-    @IsNotEmpty()
+    @IsOptional()
     scheduledDeliveryTime?: string
 
 }
@@ -48,10 +46,12 @@ export class UpdateOrderDTO {
     @MaxLength(40)
     orderCode: string
 
-    @IsEnum(KitchenStatusEnum)
+    // @IsEnum(KitchenStatusEnum)
+    @IsNotEmpty()
     kitchenStatus: KitchenStatusEnum
 
-    @IsEnum(OrderStatusEnum)
+    // @IsEnum(KitchenStatusEnum)
+    @IsNotEmpty()
     orderStatus: OrderStatusEnum
 
     @IsBoolean()
