@@ -20,7 +20,6 @@ export class AuthenticationMiddleware implements ExpressMiddlewareInterface {
 
         let decoded = decode(token!) as JwtPayload
         let dateNow = new Date()
-        console.log(decoded,new Date(decoded.exp!), new Date(dateNow.getTime()))
         if(decoded.exp! < dateNow.getTime()) return expressResponse.status(401).send("Token expired")
         next()
     }
