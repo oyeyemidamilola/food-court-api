@@ -1,7 +1,32 @@
-import { IsBoolean, IsDate, IsEnum, IsLatitude, IsLongitude, IsNotEmpty, IsOptional, IsUUID, MaxLength, ValidateIf } from "class-validator"
+import { IsBoolean, IsDate, IsEnum, IsLatitude, IsLongitude, IsNotEmpty, IsOptional, IsUUID, MaxLength, ValidateIf, ValidateNested } from "class-validator"
 
 import { KitchenStatusEnum, OrderStatusEnum } from "@domain/enums"
+import { Type } from "class-transformer"
 
+
+export class AddonIdsDTO {
+
+    @IsUUID()
+    addonId: string
+}
+
+export class MealOrderDTO {
+
+    @IsUUID()
+    mealId: string
+
+    @ValidateNested({ each: true })
+    @Type(() => AddonIdsDTO)
+    @IsOptional()
+    addOns?: AddonIdsDTO[]
+}
+
+export class ProcessOrderDTO {
+    
+    @ValidateNested({ each: true })
+    @Type(() => MealOrderDTO)
+    selectedMeals: MealOrderDTO[]
+}
 export class CreateOrderDTO {
 
     @IsUUID()

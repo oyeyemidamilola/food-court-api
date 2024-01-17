@@ -1,3 +1,20 @@
+### Set up Instruction 
+* Set up a Postgres Database locally. Check [here][link]
+* Create .env from .env.example
+* Run ```CREATE DATABASE foodcourtdb;``` in the postgres container cli 
+* Run ``` yarn ``` to install all modules
+* Run ``` yarn create:migration ``` to set database tables
+* Run ``` yarn seed:users ``` to seed test users
+* Run ``` yarn start:local ``` to run locally
+* Visit ``` http://localhost:5003/swagger``` to access API
+
+![API](swagger-api.png)
+
+
+
+
+
+
 ### Description
 The architectural style employed for the  system is a Microservice Architecture. It is a distributed architecture leveraging asynchronous messaging via message brokers for service to service interactions. 
 
@@ -49,3 +66,5 @@ A distributed cache can be used to manage order creations and updates at a high 
 
 ### Security
 Client authentication can be managed on the user service via the API gateway using JSON web tokens that are very short-lived i.e quick expiration. The signed payload should only contain non sensitive data limited to entity identifiers alone. Also, all databases should be deployed under private domain networks and possibly with factored authentications for external client access. Also application credentials and configuration should level secrets operations toolings for asymmetric encryptions. If card information / private payment data are stored on the payment service, PCI DSS compliance should be maintained at all times for the life cycle of the service.
+
+[link]:https://github.com/rubixnuggets-technologies/Identity-v2

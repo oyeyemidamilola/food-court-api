@@ -10,18 +10,21 @@ import {
 	Post,
     Put,
     QueryParam,
+	UseBefore,
 } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 import { IMediator } from 'mediatr-ts';
 
 import { MediatorInstance } from '@infrastructure/index';
-import { CreateOrderDTO, UpdateOrderDTO } from '@application/usecases/orders/dtos';
-import { CreateOrderCommand, CreateOrderResponse, DeleteOrderCommand, DeleteOrderResponse, GetOrderByIdQuery, GetOrderByIdResponse, GetOrdersQuery, GetOrdersResponse, UpdateOrderCommand, UpdateOrderResponse } from '@application/usecases/orders';
+import { CreateOrderDTO, ProcessOrderDTO, UpdateOrderDTO } from '@application/usecases/orders/dtos';
+import { CreateOrderCommand, CreateOrderResponse, DeleteOrderCommand, DeleteOrderResponse, GetOrderByIdQuery, GetOrderByIdResponse, GetOrdersQuery, GetOrdersResponse, ProcessOrderCommand, ProcessOrderCommandResponse, UpdateOrderCommand, UpdateOrderResponse } from '@application/usecases/orders';
+import { AuthenticationMiddleware } from '@api/middlewares/authentication';
 
 
 @JsonController()
 @Service()
 @OpenAPI({ security: [{ bearerAuth: [] }] })
+@UseBefore(AuthenticationMiddleware)
 export class OrderController {
 
     constructor(
@@ -62,5 +65,11 @@ export class OrderController {
 	async deleteBrand(@Param('id') id: string){
 		let reponse = await this.mediator.send<DeleteOrderResponse>(new DeleteOrderCommand({ id }))
 		return reponse
+	}
+
+	@Post('/process-order')
+	async processOrder(@Body() request: ProcessOrderDTO){
+		return this.mediator.send<ProcessOrderCommandResponse>(new ProcessOrderCommand({ selectedMeals: request }))
+		{ status: true }
 	}
 }

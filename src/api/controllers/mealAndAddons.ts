@@ -10,19 +10,21 @@ import {
 	Post,
 	Put,
 	QueryParam,
+	UseBefore,
 } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 import { IMediator } from 'mediatr-ts';
 
 import { MediatorInstance } from '@infrastructure/index';
 import { AddonDTO, CreateMealAddonsCommand, CreateMealAddonsDTO, CreateMealAddonsResponse, CreateMealCommand, CreateMealDTO, CreateMealResponse, DeleteMealCommand, DeleteMealResponse, GetMealAddonsQuery, GetMealAddonsResponse, GetMealByIdQuery, GetMealByIdResponse, GetMealsQuery, UpdateMealAddonCommand, UpdateMealAddonResponse, UpdateMealCommand, UpdateMealDTO, UpdateMealResponse } from '@application/usecases/meals';
-import { request } from 'express';
+import { AuthenticationMiddleware } from '@api/middlewares/authentication';
 
 
 
 @JsonController()
 @Service()
 @OpenAPI({ security: [{ bearerAuth: [] }] })
+@UseBefore(AuthenticationMiddleware)
 export class MealAndAddonsController {
 
     constructor(
@@ -31,8 +33,6 @@ export class MealAndAddonsController {
 	) {}
 
 	@Post('/meal')
-	// @UseBefore(AuthenticateClientMiddleware)
-	// @Authorized(['payment:read'])
 	async createMeal(@Body() request: CreateMealDTO){
         let response = await this.mediator.send<CreateMealResponse>(new CreateMealCommand({...request }))
 		return response;

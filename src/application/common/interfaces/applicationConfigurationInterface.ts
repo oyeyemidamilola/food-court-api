@@ -6,4 +6,5 @@ export interface ApplicationConfigurationInterface {
         userName: string
         password: string
     }
+    secret: string
 }

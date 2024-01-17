@@ -9,7 +9,9 @@ const {
     NODE_ENV,
 
     POSTGRES_USERNAME,
-    POSTGRES_PASSWORD
+    POSTGRES_PASSWORD,
+
+    SECRET
 } = process.env
 
 
@@ -20,5 +22,6 @@ export const configuration: ApplicationConfigurationInterface  = {
     db: {
         userName: POSTGRES_USERNAME!,
         password: POSTGRES_PASSWORD!
-    }
+    },
+    secret: SECRET!
 }

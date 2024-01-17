@@ -6,6 +6,7 @@ import { sign }from 'jsonwebtoken'
 
 import { ResponseInterface } from "@application/common";
 import { User } from "@domain/model/user";
+import { configuration } from '@infrastructure/configurations';
 
 export class AuthenticateUserCommand implements IRequest<AuthenticateUserResponse> {
 
@@ -40,7 +41,7 @@ export class AuthenticateUserCommandHandler implements IRequestHandler<Authentic
         if(!user) throw new NotFoundError(`user with ${value.email} not registered`)
         if(!bcrypt.compareSync(value.password, user.hashedPassword)) throw new UnauthorizedError('password not correct')
 
-        let token = sign({ userId: user.id }, 'secret', { expiresIn: 15 })
+        let token = sign({ userId: user.id, exp: ((new Date()).getTime() + 3600 * 25) }, configuration.secret)
         return {
             status: true,
             data: { accessToken: token }
