@@ -1,11 +1,11 @@
-
-import { logger } from '@infrastructure/logger';
 import { Request } from 'express';
 import {
     Middleware,
     ExpressMiddlewareInterface,
 } from 'routing-controllers';
 import { Service } from 'typedi';
+
+import { logger } from '@infrastructure/logger';
 
 
 @Service()

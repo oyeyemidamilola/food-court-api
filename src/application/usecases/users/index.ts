@@ -1,0 +1,1 @@
+export * from '@application/usecases/users/commands/authenticateUser'
