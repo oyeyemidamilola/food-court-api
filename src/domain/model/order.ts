@@ -3,7 +3,7 @@ import { Model, RelationMapping } from "objection";
 import { CalculatedOrder } from "./calculatedOrder";
 import { OrderLog } from "./orderLog";
 import { Meal } from "./meal";
-import { KicthenStatus, OrderStatus } from "@domain/types";
+import { KitchenStatus, OrderStatus } from "@domain/types";
 
 
 export class Order extends Model {
@@ -16,7 +16,7 @@ export class Order extends Model {
 
     user_id: string
 
-    kitchen_status: KicthenStatus
+    kitchen_status: KitchenStatus
     order_status: OrderStatus
     order_code: string
     completed_time?: Date

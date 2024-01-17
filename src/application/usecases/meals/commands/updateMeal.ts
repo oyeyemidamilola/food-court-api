@@ -40,9 +40,8 @@ export class UpdateMealCommand implements IRequest<UpdateMealResponse> {
 
 }
 
-export class UpdateMealResponse implements ResponseInterface<{ id: string }> {
+export class UpdateMealResponse implements ResponseInterface<Meal> {
     status: boolean;
-    data?: { id: string; };
     error?: { message: string; } | undefined;
 }
 
